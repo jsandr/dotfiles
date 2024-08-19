@@ -1,9 +1,46 @@
 [user]
-	name = Dave Eddy
-	email = dave@daveeddy.com
+	email = jean.sandrin@seasidetech.net
+	name = jsandr
+[diff]
+	tool = meld
+[difftool]
+	prompt = false
+	keepBackup = false
+	trustExitCode = false
+[commit]
+	template = /home/jsa/.gitmessage
+[merge]
+	tool = meld
+[mergetool]
+	prompt = false
+	keepBackup = false
+	keepTemporaries = false
+[core]
+	editor = vim
+	sshcommand = ssh.exe
+	;hooksPath = "/mnt/g/intranet/01_Interne/Vie_Interne/Qualite/Procedures/#15741_RedactionMessageCommitGit/"
+[alias]
+	lg = lg1
+	lg1 = lg1-specific
+	lg2 = lg2-specific
+	lg3 = lg3-specific
+
+	lg1-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'
+	lg2-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'
+	lg3-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset) %C(bold cyan)(committed: %cD)%C(reset) %C(auto)%d%C(reset)%n''          %C(white)%s%C(reset)%n''          %C(dim white)- %an <%ae> %C(reset) %C(dim white)(committer: %cn <%ce>)%C(reset)'
+	lgb = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit --date=relative --branches
+	fix-commit = commit --edit --file=.git/COMMIT_EDITMSG
+	review = push origin HEAD:refs/for/master
+[pull]
+	rebase = true
+[safe]
+	directory = /home/jsandr/bat-extras
+	directory = /home/jsandr/lib/bat-extras
+	directory = /home/jsandr/lib/bat-extras
+	directory = /home/jsa/lib/bat-extras
+[init]
+	templatedir = /home/jsandr/.git-templates
+[advice]
+	detachedHead = false
 [color]
 	ui = auto
-[push]
-	default = matching
-[pull]
-	rebase = false

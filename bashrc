@@ -5,6 +5,7 @@
 # Author: Dave Eddy <dave@daveeddy.com>
 # Date: Sometime in 2011
 # License: MIT
+# Editor: Jean Sandrin
 
 # If not running interactively, don't do anything
 [[ -n $PS1 ]] || return
@@ -50,68 +51,12 @@ shopt -s extglob
 shopt -s autocd   2>/dev/null || true
 shopt -s dirspell 2>/dev/null || true
 
-# Aliases
-alias ..='echo "cd .."; cd ..'
-alias ag='rg' # sorry silver searcher
-alias chomd='chmod'
-alias externalip='curl -sS https://www.daveeddy.com/ip'
-alias gerp='grep'
-alias hl='rg --passthru'
-alias l='ls'
-alias suod='sudo'
-grep --color=auto < /dev/null &>/dev/null && alias grep='grep --color=auto'
-xdg-open --version &>/dev/null && alias open='xdg-open'
-
 # Enable color support of ls
 if ls --color=auto &>/dev/null; then
 	alias ls='ls -p --color=auto'
 else
 	alias ls='ls -p -G'
 fi
-
-# Git Aliases
-alias nb='git checkout -b "$USER-$(date +%s)"' # new branch
-alias ga='git add . --all'
-alias gb='git branch'
-alias gc='git clone'
-alias gci='git commit -a'
-alias gco='git checkout'
-alias gd="git diff ':!*lock'"
-alias gdf='git diff' # git diff (full)
-alias gi='git init'
-alias gl='git log'
-alias gp='git push origin HEAD'
-alias gr='git rev-parse --show-toplevel' # git root
-alias gs='git status'
-alias gt='git tag'
-alias gu='git pull' # gu = git update
-
-# because `master` is sometimes `main` (or others), these must be functions.
-gmb() { # git main branch
-	local main
-	main=$(git symbolic-ref --short refs/remotes/origin/HEAD)
-	main=${main#origin/}
-	[[ -n $main ]] || return 1
-	echo "$main"
-}
-
-# show the diff from inside a branch to the main branch
-gbd() { # git branch diff
-	local mb=$(gmb) || return 1
-	git diff "$mb..HEAD"
-}
-
-# checkout the main branch and update it
-gcm() { # git checkout $main
-	local mb=$(gmb) || return 1
-	git checkout "$mb" && git pull
-}
-
-# merge the main branch into our branch
-gmm() { # git merge $main
-	local mb=$(gmb) || return 1
-	git merge "$mb"
-}
 
 # Prompt
 # Store `tput` colors for future use to reduce fork+exec
@@ -147,22 +92,24 @@ set_prompt_colors() {
 }
 
 # Construct the prompt
-# [(exit code)] <user> - <hostname> <uname> <cwd> [git branch] <$|#>
+# [(exit code)]  <user> - <hostname> <uname> <cwd> [git branch] <$|#>
 
 # exit code of last process
-PS1='$(ret=$?;(($ret!=0)) && echo "\[${COLOR256[0]}\]($ret) \[${COLOR256[256]}\]")'
+#PS1='$(ret=$?;(($ret!=0)) && echo "\[${COLOR256[0]}\]($ret) \[${COLOR256[256]}\]")'
 
+# time
+PS1='${PROMPT_COLORS[3]} $(date +"%H:%M:%S") '
 # username (red for root)
-PS1+='\[${PROMPT_COLORS[0]}\]\[${COLOR256[257]}\]$(((UID==0)) && echo "\[${COLOR256[0]}\]")\u\[${COLOR256[256]}\] - '
+PS1+='\[${PROMPT_COLORS[0]}\]\[${COLOR256[257]}\]$(((UID==0)) && echo "\[${COLOR256[0]}\]")\u\[${COLOR256[256]}\] '
 
 # zonename (global zone warning)
 PS1+='\[${COLOR256[0]}\]\[${COLOR256[257]}\]'"$(zonename 2>/dev/null | grep -q '^global$' && echo 'GZ:')"'\[${COLOR256[256]}\]'
 
 # hostname
-PS1+='\[${PROMPT_COLORS[3]}\]\h '
+#PS1+='\[${PROMPT_COLORS[3]}\]\h '
 
 # uname
-PS1+='\[${PROMPT_COLORS[2]}\]'"$(uname | tr '[:upper:]' '[:lower:]')"' '
+#PS1+='\[${PROMPT_COLORS[2]}\]'"$(uname | tr '[:upper:]' '[:lower:]')"' '
 
 # cwd
 PS1+='\[${PROMPT_COLORS[5]}\]\w '
@@ -349,5 +296,7 @@ untiny() {
 	. ~/.bash_completion 2>/dev/null
 
 path_clean
+
+export ecuip="192.168.1.41"
 
 true
