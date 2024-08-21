@@ -39,9 +39,6 @@ export LESS_TERMCAP_ZV=$(tput rsubm)
 export LESS_TERMCAP_ZO=$(tput ssupm)
 export LESS_TERMCAP_ZW=$(tput rsupm)
 
-# PATH
-path_add ~/bin before
-
 # Shell Options
 shopt -s cdspell
 shopt -s checkwinsize
@@ -294,8 +291,6 @@ untiny() {
 # load completion
 . /etc/bash/bash_completion 2>/dev/null ||
 	. ~/.bash_completion 2>/dev/null
-
-path_clean
 
 export ecuip="192.168.1.41"
 
