@@ -100,14 +100,14 @@ alias bl='ba -l'
 alias eclipse='/opt/eclipse/eclipse > /dev/null 2>&1 &' #GDK_DPI_SCALE=1.5
 alias conf='. ~/bin/afterDockerStart.sh'
 
-alias ssecu='ssh root@$ecuip'
+alias ssecu='ssh root@${ecuip} -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
 
 # Python
 alias doexe='pyinstaller --onefile reader.py && mv dist/reader reader && rm -rf dist && rm -rf build && rm reader.spec'
 
 # Lore
 alias Taiwan='TZ=Asia/Taipei date'
-alias Turc='TZ=Turquey date'
+alias Turc='TZ=Europe/Istanbul date'
 alias setTime="sudo ntpdate time.windows.com"
 alias cronStatus="systemctl status cron"
 

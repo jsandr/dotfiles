@@ -95,7 +95,7 @@ set_prompt_colors() {
 #PS1='$(ret=$?;(($ret!=0)) && echo "\[${COLOR256[0]}\]($ret) \[${COLOR256[256]}\]")'
 
 # time
-PS1='${PROMPT_COLORS[3]}$(date +"%H:%M:%S") '
+PS1='\[${PROMPT_COLORS[3]}\]$(date +"%H:%M:%S") '
 # username (red for root)
 PS1+='\[${PROMPT_COLORS[0]}\]\[${COLOR256[257]}\]$(((UID==0)) && echo "\[${COLOR256[0]}\]")\u\[${COLOR256[256]}\] '
 
@@ -294,4 +294,6 @@ untiny() {
 
 export ecuip="192.168.1.41"
 
+# Help wsl launch gui
+export $(dbus-launch)
 true
