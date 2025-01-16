@@ -13,6 +13,7 @@ alias ssh="ssh.exe"
 alias ..='echo "cd .."; cd ..'
 alias chomd='chmod'
 alias gerp='grep'
+alias gti='git'
 alias suod='sudo'
 alias update='sudo sh ~/bin/update.sh'
 alias medl='meld'
@@ -59,7 +60,7 @@ alias gl='git stash list'
 alias gw='git switch'
 alias ga='git add -u'
 alias gf='bash ~/bin/gitFetcher.sh'
-alias gg='bash ~/bin/rebaseG.sh'
+alias gg='gitg &> /dev/null'
 # Futur aliases ?
 #alias nb='git checkout -b "$USER-$(date +%s)"' # new branch
 #alias ga='git add . --all'
@@ -93,14 +94,16 @@ alias cdol='cd ~/OLDAmbaSDK/ambalink'
 
 # Amba
 alias dok='bash ~/AmbaSDK/ambalink/svm_apps/tools/rundock.sh'
-alias newdocker='bash ~/AmbaSDK/ambalink/svm_apps/tools/createdock.sh ~/AmbaSDK/ /mnt/c'
+alias pod='podman exec -u $USER -ti SST_container /bin/bash'
+alias newdocker='bash ~/AmbaSDK/ambalink/svm_apps/create_dock.sh ~/AmbaSDK /mnt/c'
+alias newpodman='bash ~/AmbaSDK/AmbaPodman/20231116_AmbaContainer_v2.5.6.0_ubu1804_onnx/RunContainer.sh ~/AmbaSDK/ /mnt/c'
 alias ba='bash ~/AmbaSDK/rtos/cortex_a/svm_scripts/sstBuilder.sh'
-alias br='ba -r'
+alias br='yes "" | ba -r'
 alias bl='ba -l'
 alias eclipse='/opt/eclipse/eclipse > /dev/null 2>&1 &' #GDK_DPI_SCALE=1.5
 alias conf='. ~/bin/afterDockerStart.sh'
 
-alias ssecu='ssh root@${ecuip} -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
+alias ssecu='ssh SvmUser@${ecuip} -p 10022 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
 
 # Python
 alias doexe='pyinstaller --onefile reader.py && mv dist/reader reader && rm -rf dist && rm -rf build && rm reader.spec'
@@ -108,6 +111,6 @@ alias doexe='pyinstaller --onefile reader.py && mv dist/reader reader && rm -rf 
 # Lore
 alias Taiwan='TZ=Asia/Taipei date'
 alias Turc='TZ=Europe/Istanbul date'
-alias setTime="sudo ntpdate time.windows.com"
+alias syncTime='sudo /home/jsandr/bin/syncTime.sh'
 alias cronStatus="systemctl status cron"
 

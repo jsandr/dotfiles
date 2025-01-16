@@ -8,7 +8,7 @@
 	keepBackup = false
 	trustExitCode = false
 [commit]
-	template = /home/jsa/.gitmessage
+	template = /home/jsandr/.gitmessage
 [merge]
 	tool = meld
 [mergetool]
@@ -18,7 +18,7 @@
 [core]
 	editor = vim
 	sshcommand = ssh.exe
-	;hooksPath = "/mnt/g/intranet/01_Interne/Vie_Interne/Qualite/Procedures/#15741_RedactionMessageCommitGit/"
+	hooksPath = "/mnt/g/intranet/01_Interne/Vie_Interne/Qualite/Procedures/#15741_RedactionMessageCommitGit/"
 [alias]
 	lg = lg1
 	lg1 = lg1-specific
@@ -37,7 +37,8 @@
 	directory = /home/jsandr/bat-extras
 	directory = /home/jsandr/lib/bat-extras
 	directory = /home/jsandr/lib/bat-extras
-	directory = /home/jsa/lib/bat-extras
+	directory = /home/jsandr/lib/bat-extras
+	directory = /home/jsandr/lib/bat-extras
 [init]
 	templatedir = /home/jsandr/.git-templates
 [advice]
