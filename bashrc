@@ -25,13 +25,27 @@ export TZ='Europe/Paris'
 export VISUAL='vim'
 
 # Support colors in less
-export LESS_TERMCAP_mb=$(tput bold; tput setaf 1)
-export LESS_TERMCAP_md=$(tput bold; tput setaf 1)
+export LESS_TERMCAP_mb=$(
+  tput bold
+  tput setaf 1
+)
+export LESS_TERMCAP_md=$(
+  tput bold
+  tput setaf 1
+)
 export LESS_TERMCAP_me=$(tput sgr0)
 export LESS_TERMCAP_se=$(tput sgr0)
-export LESS_TERMCAP_so=$(tput bold; tput setaf 3; tput setab 4)
+export LESS_TERMCAP_so=$(
+  tput bold
+  tput setaf 3
+  tput setab 4
+)
 export LESS_TERMCAP_ue=$(tput sgr0)
-export LESS_TERMCAP_us=$(tput smul; tput bold; tput setaf 2)
+export LESS_TERMCAP_us=$(
+  tput smul
+  tput bold
+  tput setaf 2
+)
 export LESS_TERMCAP_mr=$(tput rev)
 export LESS_TERMCAP_mh=$(tput dim)
 export LESS_TERMCAP_ZN=$(tput ssubm)
@@ -45,14 +59,14 @@ shopt -s checkwinsize
 shopt -s extglob
 
 # Bash Version >= 4
-shopt -s autocd   2>/dev/null || true
+shopt -s autocd 2>/dev/null || true
 shopt -s dirspell 2>/dev/null || true
 
 # Enable color support of ls
 if ls --color=auto &>/dev/null; then
-	alias ls='ls -p --color=auto'
+  alias ls='ls -p --color=auto'
 else
-	alias ls='ls -p -G'
+  alias ls='ls -p -G'
 fi
 
 # Prompt
@@ -70,22 +84,22 @@ PROMPT_COLORS=()
 
 # Change the prompt colors to a theme, themes are 0-29
 set_prompt_colors() {
-	local h=${1:-0}
-	local color=
-	local i=0
-	local j=0
-	for i in {22..231}; do
-		((i % 30 == h)) || continue
+  local h=${1:-0}
+  local color=
+  local i=0
+  local j=0
+  for i in {22..231}; do
+    ((i % 30 == h)) || continue
 
-		color=${COLOR256[$i]}
-		# cache the tput colors
-		if [[ -z $color ]]; then
-			COLOR256[$i]=$(tput setaf "$i")
-			color=${COLOR256[$i]}
-		fi
-		PROMPT_COLORS[$j]=$color
-		((j++))
-	done
+    color=${COLOR256[$i]}
+    # cache the tput colors
+    if [[ -z $color ]]; then
+      COLOR256[$i]=$(tput setaf "$i")
+      color=${COLOR256[$i]}
+    fi
+    PROMPT_COLORS[$j]=$color
+    ((j++))
+  done
 }
 
 # Construct the prompt
@@ -122,12 +136,12 @@ set_prompt_colors 24
 
 # Prompt command
 _prompt_command() {
-        local user=$USER
-        local host=${HOSTNAME%%.*}
-        local pwd=${PWD/#$HOME/\~}
-        local ssh=
-        [[ -n $SSH_CLIENT ]] && ssh='[ssh] '
-        printf "\033]0;%s%s@%s:%s\007" "$ssh" "$user" "$host" "$pwd"
+  local user=$USER
+  local host=${HOSTNAME%%.*}
+  local pwd=${PWD/#$HOME/\~}
+  local ssh=
+  [[ -n $SSH_CLIENT ]] && ssh='[ssh] '
+  printf "\033]0;%s%s@%s:%s\007" "$ssh" "$user" "$host" "$pwd"
 }
 PROMPT_COMMAND=_prompt_command
 
@@ -135,12 +149,12 @@ PROMPT_DIRTRIM=6
 
 # print a colorized diff
 colordiff() {
-	local red=$(tput setaf 1 2>/dev/null)
-	local green=$(tput setaf 2 2>/dev/null)
-	local cyan=$(tput setaf 6 2>/dev/null)
-	local reset=$(tput sgr0 2>/dev/null)
+  local red=$(tput setaf 1 2>/dev/null)
+  local green=$(tput setaf 2 2>/dev/null)
+  local cyan=$(tput setaf 6 2>/dev/null)
+  local reset=$(tput sgr0 2>/dev/null)
 
-	diff -u "$@" | awk "
+  diff -u "$@" | awk "
 	/^\-/ {
 		printf(\"%s\", \"$red\");
 	}
@@ -155,35 +169,35 @@ colordiff() {
 		print \$0 \"$reset\";
 	}"
 
-	return "${PIPESTATUS[0]}"
+  return "${PIPESTATUS[0]}"
 }
 
 # Print all 256 colors
 colors() {
-	local i
-	for i in {0..255}; do
-		printf "\x1b[38;5;${i}mcolor %d\n" "$i"
-	done
-	tput sgr0
+  local i
+  for i in {0..255}; do
+    printf "\x1b[38;5;${i}mcolor %d\n" "$i"
+  done
+  tput sgr0
 }
 
 # Copy stdin to the clipboard
 copy() {
-	pbcopy 2>/dev/null ||
-	    xsel 2>/dev/null ||
-	    clip.exe
+  pbcopy 2>/dev/null ||
+    xsel 2>/dev/null ||
+    clip.exe
 
 }
 
 # Convert epoch to human readable (print current date if no args)
 epoch() {
-	local num=${1:--1}
-	printf '%(%B %d, %Y %-I:%M:%S %p %Z)T\n' "$num"
+  local num=${1:--1}
+  printf '%(%B %d, %Y %-I:%M:%S %p %Z)T\n' "$num"
 }
 
 # Platform-independent interfaces
 interfaces() {
-	node <<-EOF
+  node <<-EOF
 	var os = require('os');
 	var i = os.networkInterfaces();
 	Object.keys(i).forEach(function(name) {
@@ -198,7 +212,7 @@ interfaces() {
 
 # Calculate CPU load / Core Count
 load() {
-	node -p <<-EOF
+  node -p <<-EOF
 	var os = require('os');
 	var c = os.cpus().length;
 	os.loadavg().map(function(l) {
@@ -209,7 +223,7 @@ load() {
 
 # Platform-independent memory usage
 meminfo() {
-	node <<-EOF
+  node <<-EOF
 	var os = require('os');
 	var free = os.freemem();
 	var total = os.totalmem();
@@ -223,46 +237,46 @@ meminfo() {
 
 # print lines over X columns (defaults to 80)
 over() {
-	awk -v c="${1:-80}" 'length($0) > c {
+  awk -v c="${1:-80}" 'length($0) > c {
 		printf("%4d %s\n", NR, $0);
 	}'
 }
 
 # print a rainbow if truecolor is available to the terminal
 rainbow() {
-	local i r g b
-	for ((i = 0; i < 77; i++)); do
-		r=$((255 - (i * 255 / 76)))
-		g=$((i * 510 / 76))
-		b=$((i * 255 / 76))
-		((g > 255)) && g=$((510 - g))
-		printf '\033[48;2;%d;%d;%dm ' "$r" "$g" "$b"
-	done
-	tput sgr0
-	echo
+  local i r g b
+  for ((i = 0; i < 77; i++)); do
+    r=$((255 - (i * 255 / 76)))
+    g=$((i * 510 / 76))
+    b=$((i * 255 / 76))
+    ((g > 255)) && g=$((510 - g))
+    printf '\033[48;2;%d;%d;%dm ' "$r" "$g" "$b"
+  done
+  tput sgr0
+  echo
 }
 
 # Follow redirects to untiny a tiny url
 untiny() {
-	local location=$1
-	local last_location=''
+  local location=$1
+  local last_location=''
 
-	while [[ -n $location ]]; do
-		[[ -n $last_location ]] && echo " -> $last_location"
-		last_location=$location
-		read -r _ location < \
-		    <(curl -sI "$location" | grep 'Location: ' | tr -d '[:cntrl:]')
-	done
-	echo "$last_location"
+  while [[ -n $location ]]; do
+    [[ -n $last_location ]] && echo " -> $last_location"
+    last_location=$location
+    read -r _ location < \
+      <(curl -sI "$location" | grep 'Location: ' | tr -d '[:cntrl:]')
+  done
+  echo "$last_location"
 }
 
 # Load external files
-. ~/.bash_aliases    2>/dev/null || true
-. ~/.bashrc.local    2>/dev/null || true
+. ~/.bash_aliases 2>/dev/null || true
+. ~/.bashrc.local 2>/dev/null || true
 
 # load completion
 . /etc/bash/bash_completion 2>/dev/null ||
-	. ~/.bash_completion 2>/dev/null
+  . ~/.bash_completion 2>/dev/null
 
 # no GUI errors
 export $(dbus-launch)
@@ -275,4 +289,10 @@ export ecuip="192.168.1.21"
 . "$HOME/.cargo/env"
 
 export jdo='/mnt/c/Users/jsandrin/Downloads'
-true
+
+# Did you use a docker to launch me ?
+#if grep -q "docker" /proc/1/cgroup; then
+#	return
+#fi
+
+#[ -f ~/.inshellisense/bash/init.sh ] && source ~/.inshellisense/bash/init.sh

@@ -39,6 +39,7 @@
 	directory = /home/jsandr/lib/bat-extras
 	directory = /home/jsandr/lib/bat-extras
 	directory = /home/jsandr/lib/bat-extras
+	directory = /home/jsandr/lib/bat-extras
 [init]
 	templatedir = /home/jsandr/.git-templates
 [advice]

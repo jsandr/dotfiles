@@ -131,6 +131,9 @@ highlight SpellLocal term=underline cterm=underline
 " ---------------------------------------------
 " Plugins
 " ---------------------------------------------
+"
+syntax enable
+filetype plugin indent on
 let g:airline_powerline_fonts = 0
 let g:airline_theme = "deus"
 let g:rust_recommended_style = 1
